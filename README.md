@@ -1,5 +1,5 @@
 ## 1. 미션 : 나만의 개발 워크스테이션 만들기
-이번 미션의 목표는 누구에게나 똑같이 돌아가는 코드가 안정적으로 돌아가는 서버 개발 환경을 만드는 것입니다. 내 컴퓨터에 Docker와 Git을 설치하고, 데이터를 안전하게 저장(Volume/Bind Mount)하는 컨테이너 웹 서버를 띄워 검증한 뒤, GitHub와 연동해 개발 환경을 만드는 것입니다
+본 미션의 목표는 누구에게나 동일하고 안정적으로 실행되는 서버 개발 환경을 구축하는 것입니다. 내 컴퓨터에 Docker와 Git을 설치하고, 데이터를 안전하게 저장(Volume/Bind Mount)하는 컨테이너 웹 서버를 띄워 검증한 뒤, GitHub와 연동하여 개발 환경을 완성합니다.
 
 ## 2. 실행 환경
 * OS:Windows 11 Pro (버전 25H2)
@@ -48,13 +48,13 @@ drwxr-xr-x 2 ****** ****** 4096 Aug  2 07:59 test
 -rw-r--r-- 1 ****** ******    0 Aug  2 07:59 test.txt
 ```
 > **💡 절대 경로와 상대경로**
-> * /home/***** : 루트(/) 디렉토리부터 시작하여 목표 폴더까지의 전체 주소를 의미
-> * ./file.txt 와 같이 현재 내가 위치한 디렉터리를 기준으로 한 경로
+> * 절대경로: /home/****** 와 같이 최상위 루트(/) 디렉터리부터 시작하여 목표 파일/폴더까지의 전체 경로
+> * 상대경로: ./file.txt 와 같이 현재 내가 위치한 디렉터리를 기준으로 한 경로
 
 ---
 
 ### 4.2 작업 디렉터리 파일 및 권한 확인/변경
-> * 실험 대상: `test_dir` (폴더), `test_file.txt` (파일)
+> * 실험 대상: test_dir (폴더), test_file.txt (파일)
 
 ```bash
 # 1. 테스트용 폴더 및 파일 생성
@@ -82,11 +82,12 @@ drwxrwxrwx 2 ****** ****** 4096 Aug  2 08:06 test_dir
 ```
 > **💡권한 분석 및 결과 해설**
 * 기본 권한 상태:
-  * test_dir (drwxr-xr-x): 맨 앞의 d는 디렉터리를 의미하며, 755 권한(소유자: 읽기/쓰기/실행, 그룹/기타: 읽기/실행)으로 설정되어 있음.
-  * test_file.txt (-rw-r--r--): 맨 앞의 -는 일반 파일을 의미하며, 나(rw- = 4+2=6), 그룹(r-- = 4), 남들(r-- = 4)로 644 권한(소유자: 읽기/쓰기, 그룹/기타: 읽기)으로 일반적인 웹 서버 읽기 권한에 해당함.
-* **권한 변경 검증:**
-  * chmod 777 수행 후: test_dir이 drwxrwxrwx로 변경되어 모든 사용자에게 읽기/쓰기/실행 권한이 부여됨을 확인.
-  * chmod 755 수행 후: test_file.txt가 -rwxr-xr-x로 변경되어 실행 가능한 파일 상태가 됨을 확인. 폴더는 보통 755를 사용함.
+> * test_dir (drwxr-xr-x): 디렉터리(d)이며, 755 권한(소유자: rwx, 그룹: r-x, 기타: r-x)이 설정되어 있습니다.
+> * test_file.txt (-rw-r--r--): 일반 파일(-)이며, 644 권한(소유자: rw-, 그룹: r--, 기타: r--)이 설정되어 있습니다.
+> * 권한 표기는 r(읽기=4), w(쓰기=2), x(실행=1)의 합산값입니다.
+* 권한 변경 검증:
+> * chmod 777 수행 후: test_dir이 drwxrwxrwx로 변경되어 모든 사용자에게 읽기/쓰기/실행 권한이 부여됨을 확인하였습니다.
+> * chmod 755 수행 후: test_file.txt가 -rwxr-xr-x로 변경되어 실행 가능한 파일 상태가 됨을 확인하였습니다.
 
 > **💡권한 변경하는 이유**
 > * 서버의 중요 파일이 외부나 다른 사용자에 의해 마음대로 수정·삭제되지 않도록 보안 잠금장치를 걸고, 필요한 프로그램이나 웹 서비스만 제대로 작동할 수 있도록 열쇠(권한)를 쥐여주기 위해서입니다.
@@ -102,11 +103,10 @@ drwxrwxrwx 2 ****** ****** 4096 Aug  2 08:06 test_dir
     
 ## 5. Docker 설치 및 기본 점검
 ### 5.1 Docker 환경 구축
-* **운영체제 및 환경:** Windows (WSL2 기반 Docker Desktop)
-* **설치 절차:**
-  1. PowerShell(관리자 권한)에서 `wsl --install` 실행 후 재부팅
-  2. Docker Desktop 공식 홈페이지에서 설치 파일 다운로드 및 설치
-  * *(참고: macOS 환경인 경우 OrbStack/Docker Desktop 활용)*
+> * 운영체제 및 환경: Windows (WSL2 기반 Docker Desktop)
+> * 설치 절차:
+> * PowerShell(관리자 권한)에서 wsl --install 실행 후 재부팅
+> * Docker Desktop 공식 홈페이지에서 설치 파일 다운로드 및 설치
 
 ### Docker 정상 작동 확인
 ```bash
@@ -155,7 +155,7 @@ f09155710c48   ubuntu        "bash"                   2 days ago       Exited (0
 #### 📸 실행 결과 캡처
 ![전체 컨테이너 목록 확인](https://github.com/user-attachments/assets/b76893ef-4da4-4686-9c2c-bc56750d51f0)
 
-# 4. 다운로드된 이미지 목록 확인
+### 5.4 다운로드된 이미지 목록 확인
 ```bash
 $ docker images
 IMAGE                ID             DISK USAGE   CONTENT SIZE   EXTRA
@@ -167,7 +167,7 @@ web-test:latest      4e727198299d        238MB         63.1MB    U
 ```
 ---
 
-### 5.4 Git 저장소 초기화 및 설정
+### 5.5 Git 저장소 초기화 및 설정
 ```bash
 # 1. 작업 디렉터리 내 Git 저장소 초기화
 $ git init
@@ -183,7 +183,7 @@ $ git config user.email "**********.*****.com"
 
 ---
 
-### 5.5 작업 디렉터리 파일 및 권한 확인
+### 5.6 작업 디렉터리 파일 및 권한 확인
 ```bash
 # 작업 폴더 내 생성된 파일 및 Git(.git) 폴더 존재 확인
 $ ls -al
@@ -209,7 +209,7 @@ drwxrwxrwx  2 ****** ****** 4096 Aug  2 08:06 test_dir
 ```bash
 # 1. Ubuntu 컨테이너 생성 및 내부 접속 (-it 옵션 활용)
 $ docker run -it ubuntu bash                         
-root@8cf7403ce46f:/#                       # ← 내부 진입 성공, 프롬프트가 root@컨테이너ID:/#로 바뀜
+root@8cf7403ce46f:/#                       # ← 내부 진입 성공
 
 # 2. 컨테이너 내부 명령어 수행 (현재 폴더의 파일 목록 확인)
 root@8cf7403ce46f:/#    $ls
@@ -219,39 +219,49 @@ bin  boot  dev  etc  home  lib  lib64  media  mnt  opt  proc  root  run  sbin  s
 root@f09155710c48:/# echo "Hello Ubuntu"           
 Hello Ubuntu
 
-# 4. 컨테이너에서 빠져나오기
+# 4. 컨테이너에서 빠져나오기 (프로세스 종료)
 root@f09155710c48:/# exit
 ```
+
+> **💡컨테이너 종료 방식 참고**
+> * exit: 컨테이너 내부 쉘을 빠져나오면서 컨테이너 프로세스를 종료시킵니다.
+> * Ctrl + P + Q: 컨테이너를 백그라운드 유지 상태(Running)로 두고 터미널만 빠져나옵니다.
 
 #### 📸 실행 결과 캡처
 ![우분투 컨테이너 진입](https://github.com/user-attachments/assets/200a9c98-ca72-4316-9784-9e0d1a749705)
 
+---
+
 ## 7. 커스텀 이미지 제작 및 포트 매핑 (Nginx 웹 서버)
 ### 7.1 Dockerfile 작성 및 커스텀 포인트
 Nginx 베이스 이미지를 활용하여 커스텀 웹 페이지를 제공하는 이미지를 생성합니다.
-* **베이스 이미지:** `nginx:latest`
-* **커스텀 포인트:** 
-  1. 기본 Nginx 메인 페이지 대신 작성한 `index.html`로 교체
-  2. 컨테이너 내부 웹 서비스 포트(`80`) 명시
+> * 베이스 이미지: nginx:latest
+> * 주요 작업:
+> * 1. 커스텀 index.html 작성
+> * 2. 기본 Nginx 메인 페이지 대신 커스텀 index.html 복사
+> * 3. 컨테이너 내부 웹 서비스 포트(80) 명시
 
 ```bash
 # 1. 실습 파일(Dockerfile, index.html) 생성
 $ touch Dockerfile index.html
 
 # 2. VSCode로 열어서 Docker 파일 작성
+$ code .
+
+# Dockerfile
 FROM nginx:latest                      # 1. Nginx 베이스 이미지 지정
 COPY index.html /usr/share/nginx/html  # 2. 커스텀 HTML 파일을 컨테이너 내부로 복사
 EXPOSE 80                              # 3. 80번 포트 사용 명시
 
 # 3. 커스텀 웹페이지 내용 작성 및 확인
-$ touch index.html
 $ echo '<h1>Hello! This is MY Custom Docker!</h1>' > index.html  
 $ cat index.html                    
 <h1>Hello! This is MY Custom Docker!</h1> 
 
 # 4. 커스텀 Docker 이미지 빌드 (-t test-web)
-$ docker build -t test-web .        
+$ docker build -t test-web .
 
+# 5. 이미지 생성 확인
 $ docker images                     # 이미지 확인
 IMAGE                ID             DISK USAGE   CONTENT SIZE   EXTRA # ← 결과값  
 hello-world:latest   c3cbe1cc1aa5       25.9kB         9.49kB    U
@@ -268,18 +278,17 @@ web-test:latest      4e727198299d        238MB         63.1MB
 호스트의 `8080` 포트와 컨테이너의 `80` 포트를 매핑(`-p 8080:80`)하여 백그라운드(`-d`)로 실행합니다.
 
 ```bash
-# 1. 1. 포트 매핑 적용하여 컨테이너 실행
+# 1. 포트 매핑 적용하여 컨테이너 실행
 $ docker run -d -p 8080:80 test-web
 17c127e447cfc23556ad2b6b3de9c9d29eacd97d23a0708a87a5e0008f4b8078
 ```
 
 #### 📸 웹 브라우저 접속 성공 증거
-> **접속 URL:** `http://localhost:8080`
-![컨테이너 실행하기](https://github.com/user-attachments/assets/fd0506eb-9473-46c4-9a32-6928afb8a48b)
+> * 접속 URL: `http://localhost:8080`
+![웹 브라우저 접속화면](https://github.com/user-attachments/assets/fd0506eb-9473-46c4-9a32-6928afb8a48b)
 
 > **💡 포트 매핑(8080:80)이 필요한 이유**
-> * Docker 컨테이너는 호스트 격리 환경에서 동작하므로 외부 네트워크와 연결되지 않습니다.
-포트 매핑을 통해 외부(호스트)의 특정 포트로 들어오는 요청을 컨테이너 내부 포트로 전달해 주는 통로 역할을 생성해야만 브라우저에서 웹 서비스에 접속할 수 있습니다.
+> * Docker 컨테이너는 격리된 가상 네트워크를 사용하므로, 외부(호스트 컴퓨터)에서 접근하려면 호스트 포트와 컨테이너 포트를 연결(-p 8080:80)해 주는 포트 포워딩 통로가 필요합니다.
 
 ---
 
@@ -310,12 +319,12 @@ $ docker logs 17c127e447cf
 /docker-entrypoint.sh: Looking for shell scripts in /docker-entrypoint.d/
 /docker-entrypoint.sh: Launching /docker-entrypoint.d/10-listen-on-ipv6-by-default.sh ~
 
-# 4. 컨테이너 리소스 사용량 실시간 확인 (docker stats, Ctrl+c로 종료)
+# 4. 컨테이너 리소스 사용량 실시간 확인 (Ctrl+c로 종료)
 $ docker stats                        
 CONTAINER ID   NAME             CPU %     MEM USAGE / LIMIT    MEM %     NET I/O           BLOCK I/O         PIDS
 17c127e447cf   ecstatic_raman   0.00%     12.71MiB / 7.71GiB   0.16%     3.88kB / 2.46kB   10.4MB / 12.3kB   13
 
-# 5. 컨테이너 중지 후 리소스 사용량 실시간 확인 (docker stats)
+# 5. 미사용 실행 컨테이너 정지
 $ docker stop 80d1151a188f
 80d1151a188f
 $ docker stop 09c83497ee07
@@ -341,7 +350,7 @@ f09155710c48   ubuntu        "bash"                   2 days ago          Exited
 3589b4501f03   ubuntu        "bash"                   2 days ago          Exited (0) 2 days ago                                                   nice_diffie
 1dfbdfdefa05   web-test      "/docker-entrypoint.…"   2 days ago          Exited (255) 2 days ago       0.0.0.0:8080->80/tcp                      nostalgic_cray      
 
-# 6. 실습 완료된 파일 삭제 후 종료된 것 포함한 모든 컨테이너 및 포트 매핑 상태 확인 # 컨테이너 삭제 (현재 실습 제외 모두 삭제함)
+# 6. 불필요한 종료 컨테이너 정리 및 삭제
 $ docker rm 09c83497ee07
 09c83497ee07         
 $ docker rm b67d5d46ee66
@@ -355,6 +364,7 @@ $ docker rm 3589b4501f03
 $ docker rm 1dfbdfdefa05
 1dfbdfdefa05
 
+# 7. 정돈 후 최종 컨테이너 목록 확인
 $ docker ps -a
 CONTAINER ID   IMAGE         COMMAND                  CREATED             STATUS                        PORTS                                     NAMES
 17c127e447cf   my-web        "/docker-entrypoint.…"   30 minutes ago      Up 30 minutes                 0.0.0.0:8080->80/tcp, [::]:8080->80/tcp   ecstatic_raman
@@ -365,8 +375,8 @@ CONTAINER ID   IMAGE         COMMAND                  CREATED             STATUS
 
 ## 8. 데이터 영속성(Volume) 테스트
 
-### 8-1 바인드 마운트 (Bind Mount) : 
-> * 호스트의 특정 디렉토리와 컨테이너 내부 폴더를 실시간 동기화하여 변경 사항을 보관합니다.
+### 8-1 바인드 마운트 (Bind Mount)
+> * 호스트의 특정 디렉토리와 컨테이너 내부 폴더를 실시간 동기화하여 변경 사항을 원본에 직접 반영합니다.
 ```bash
 # 1. 호스트(내 컴퓨터)에 테스트용 디렉토리 및 파일 생성
 $ mkdir bind_test
@@ -392,8 +402,8 @@ After Change
 > **💡 주요 옵션 및 명령어 풀이**
 > * -d: 컨테이너를 백그라운드(비동기)에서 실행
 > * --name bind-container: 컨테이너 이름을 bind-container로 지정
-> * -v $(pwd):/app: 호스트의 현재 작업 디렉토리($(pwd))를 컨테이너 내부의 /app 경로와 실시간 마운트(연결)
-> * sleep 1000: 백그라운드 컨테이너가 즉시 종료되지 않고 1,000초간 유지되도록 명령어 실행
+> * -v $(pwd):/app: 호스트의 현재 작업 디렉토리($(pwd))를 컨테이너 내부의 /app 경로에 마운트(연결)합니다.
+> * sleep 1000: 컨테이너가 바로 종료되지 않고 1,000초간 실행 상태를 유지하도록 지정합니다.
 
 
 ### 8-2 도커 볼륨 (Docker Volume)
@@ -406,8 +416,8 @@ $ docker volume create test-usb
 # 2. 첫 번째 컨테이너(container-A)에 볼륨 마운트 후 데이터 생성
 $ docker run -it --name container-A -v test-usb:/data ubuntu bash
 root@ab983b329fa4:/#
-$ echo "Hello Volume!" > /data/secret.txt
-$ exit
+root@ab983b329fa4:/# echo "Hello Volume!" > /data/secret.txt
+root@ab983b329fa4:/# exit
 
 # 3. 첫 번째 컨테이너 삭제
 $ docker rm container-A
@@ -416,19 +426,21 @@ container-A
 # 4. 두 번째 컨테이너(container-B)에 동일한 볼륨 마운트 후 데이터 보존 여부 확인
 $ docker run -it --name container-B -v test-usb:/data ubuntu bash
 root@9922419c7977:/#
-$ cat /data/secret.txt
+root@9922419c7977:/# cat /data/secret.txt
 Hello Volume!
-$ exit
+root@9922419c7977:/# exit
+
 ```
-> **💡 주요 옵션 및 명령어 풀이**
-> * docker volume create test-usb: 도커가 자체 관리하는 독립적인 가상 저장 공간(test-usb) 생성
-> * -it: 컨테이너와 상호작용(Interactive)할 수 있도록 대화형 터미널(TTY)을 할당
-> * -v test-usb:/data: 생성해둔 도커 볼륨(test-usb)을 컨테이너 내부의 /data 경로에 마운트
-> * docker rm container-A: 기존 컨테이너를 완전 삭제하더라도, 연결되었던 볼륨 데이터는 호스트/도커 엔진에 영구 보관됨을 확인
+
+> **💡주요 옵션 설명**
+> * docker volume create test-usb: Docker 엔진이 관리하는 전용 가상 저장 공간을 생성합니다.
+> * -v test-usb:/data: 생성한 볼륨을 컨테이너 내부 /data 경로에 마운트합니다.
+> * docker rm container-A: 기존 컨테이너가 삭제되더라도 볼륨 내 데이터는 영구적으로 유지되는 것을 검증하였습니다.
 
 ## 9. Git 설정 및 GitHub 연동
-> * Git: 로컬 환경에서 코드 및 파일의 변경 이력을 관리하는 버전 관리 시스템
-> * GitHub: Git으로 관리되는 프로젝트를 원격 저장소에 보관하고 공유하는 웹 서비스
+* 개념 정리
+> * Git: 로컬 컴퓨터에서 코드 변경 이력을 관리하는 버전에 제어 시스템입니다.
+> * GitHub: Git 이력을 원격 서버에 저장하여 협업 및 백업을 가능하게 하는 클라우드 플랫폼입니다.
 
 9-1. Git 설치 확인 및 기본 Config 설정
 ```bash
@@ -446,49 +458,47 @@ $ code .
 $ git config --list
 user.name=*o****  (마스킹 처리)                             
 user.email=***n*******@gmail.com (마스킹 처리)
-init.defaultbranch=main (마스킹 처리)  
+init.defaultbranch=main (마스킹 처리)
+
 ```
 #### 📸 실행 결과 캡처
 ![Git 설정 내역 확인 및 마스킹 처리완료](https://github.com/user-attachments/assets/c8739296-e111-48ff-bb1c-0936ca9b4497)
 
-> **💡 주요 옵션 및 명령어 풀이**
-키보드에서 q 키를 눌러 명령어를 입력할 수 있는 프롬프트 상태로 돌아옵니다.
+> **💡팁**
+> * git config --list 출력 화면에서 목록 빠져나오기는 q 키를 누르면 됩니다.
 
 ---
 
 9-2. Git 저장소 초기화 및 GitHub 커밋/게시
 ```bash
-# 4. bind_test 작업 폴더를 Git 저장소(Repository)로 초기화
+# 1. bind_test 작업 폴더를 Git 저장소(Repository)로 초기화
 $ git init 
 ```
-> **💡VS Code GUI 활용 과정
+> **💡VSCode GUI 활용과정**
 > * 좌측 메뉴의 '소스 제어' (Ctrl+Shift+G) 클릭
 > * 변경 사항 확인 후 커밋 메시지 작성 및 Commit 버튼 클릭
-> * Publish to GitHub 또는 Sync 버튼을 통해 원격 저장소 연동 수행
-> * Publish to GitHub 또는 Sync 버튼을 통해 원격 저장소 연동 수행
-> * VS Code 좌측 메뉴의 '나뭇가지 아이콘(소스 제어, Ctrl+Shift+G) 클릭
+> * Publish to GitHub 또는 Sync Changes 버튼을 클릭하여 원격 저장소 연동 완료
 
 #### 📸 실행 결과 캡처
 ![Git 설정 내역 확인 및 마스킹 처리완료](https://github.com/user-attachments/assets/fff98a12-8c82-4b15-8ebc-f8e1109418d8)
 
 ---
 
-9-3. 원격 저장소 추가하고 GitHub로 푸시하기
+9-3. 원격 저장소 추가 및 GitHub 푸시
 ```bash
 $ git remote add origin https://github.com/roe-e/**-********.git
 $ git push -u origin main
 ```
-
-![GitHub로 푸시완료](https://github.com/user-attachments/assets/d3fb62e3-c2b4-4850-83c9-49ec5ea7d847)
+![GitHub로 푸시화면](https://github.com/user-attachments/assets/d3fb62e3-c2b4-4850-83c9-49ec5ea7d847)
 
 ---
 
 10. 트러블슈팅
-> * [이슈 1] bind_test 폴더 안에서 cd bind_test 입력 시 no such file or directory 에러 발생
+> * [이슈 1] bind_test 폴더 내에서 cd bind_test 입력 시 No such file or directory 발생
 > * 원인: 이미 현재 터미널 위치가 bind_test 디렉터리 내부였기 때문에 해당 하위 폴더를 찾지 못함.
 > * 해결:pwd 명령어로 현재 위치가 /home/******/bind_test임을 확인한 후, 바로 code .을 실행하여 VS Code를 열어 해결함.
 
-> * [이슈 2]  VS Code 소스 제어(나뭇가지 아이콘) 클릭 시 반응 없음
+> * [이슈 2] VS Code 소스 제어(나뭇가지 아이콘) 클릭 시 반응 없음
 > * 원인: 작업 디렉터리 내에 Git 저장소(.git)가 초기화되지 않은 상태였음.
 > * 해결: 해당 작업 폴더 터미널에서 git init 명령어를 실행하여 Git 저장소로 전환한 뒤 정상 처리함. 
 

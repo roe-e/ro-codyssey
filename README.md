@@ -461,9 +461,9 @@ init.defaultbranch=main (마스킹 처리)
 $ git init 
 ```
 
-### VS Code 좌측 메뉴의 '나뭇가지 아이콘(소스 제어, Ctrl+Shift+G) 클릭
-###커밋 메시지 작성 후 Commit(커밋) 버튼 클릭
-### Publish to GitHub(GitHub에 게시) 또는 Sync Changes 버튼을 클릭하여 원격 저장소 연동 완료
+> * VS Code 좌측 메뉴의 '나뭇가지 아이콘(소스 제어, Ctrl+Shift+G) 클릭
+> * 커밋 메시지 작성 후 Commit(커밋) 버튼 클릭
+> * Publish to GitHub(GitHub에 게시) 또는 Sync Changes 버튼을 클릭하여 원격 저장소 연동 완료
 
 #### 📸 실행 결과 캡처
 ![Git 설정 내역 확인 및 마스킹 처리완료](https://github.com/user-attachments/assets/fff98a12-8c82-4b15-8ebc-f8e1109418d8)

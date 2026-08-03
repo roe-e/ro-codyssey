@@ -461,11 +461,36 @@ init.defaultbranch=main (마스킹 처리)
 # 4. bind_test 작업 폴더를 Git 저장소(Repository)로 초기화
 $ git init 
 ```
-
+> **💡VS Code GUI 활용 과정
+> * 좌측 메뉴의 '소스 제어' (Ctrl+Shift+G) 클릭
+> * 변경 사항 확인 후 커밋 메시지 작성 및 Commit 버튼 클릭
+> * Publish to GitHub 또는 Sync 버튼을 통해 원격 저장소 연동 수행
+> * Publish to GitHub 또는 Sync 버튼을 통해 원격 저장소 연동 수행
 > * VS Code 좌측 메뉴의 '나뭇가지 아이콘(소스 제어, Ctrl+Shift+G) 클릭
-> * 커밋 메시지 작성 후 Commit(커밋) 버튼 클릭
-> * Publish to GitHub(GitHub에 게시) 또는 Sync Changes 버튼을 클릭하여 원격 저장소 연동 완료
 
 #### 📸 실행 결과 캡처
 ![Git 설정 내역 확인 및 마스킹 처리완료](https://github.com/user-attachments/assets/fff98a12-8c82-4b15-8ebc-f8e1109418d8)
+
+---
+
+9-3. 원격 저장소 추가하고 GitHub로 푸시하기
+```bash
+$ git remote add origin https://github.com/roe-e/**-********.git
+$ git push -u origin main
+```
+
+![GitHub로 푸시완료](https://github.com/user-attachments/assets/d3fb62e3-c2b4-4850-83c9-49ec5ea7d847)
+
+---
+
+10. 트러블슈팅
+> * [이슈 1] bind_test 폴더 안에서 cd bind_test 입력 시 no such file or directory 에러 발생
+> * 원인: 이미 현재 터미널 위치가 bind_test 디렉터리 내부였기 때문에 해당 하위 폴더를 찾지 못함.
+> * 해결:pwd 명령어로 현재 위치가 /home/******/bind_test임을 확인한 후, 바로 code .을 실행하여 VS Code를 열어 해결함.
+
+> * [이슈 2]  VS Code 소스 제어(나뭇가지 아이콘) 클릭 시 반응 없음
+> * 원인: 작업 디렉터리 내에 Git 저장소(.git)가 초기화되지 않은 상태였음.
+> * 해결: 해당 작업 폴더 터미널에서 git init 명령어를 실행하여 Git 저장소로 전환한 뒤 정상 처리함. 
+
+
 

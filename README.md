@@ -172,13 +172,13 @@ $ git config user.email "**********.*****.com"
 # 작업 폴더 내 생성된 파일 및 Git(.git) 폴더 존재 확인
 $ ls -al
 total 20
-drwxr-xr-x  5 shinee shinee 4096 Aug  2 08:12 .
-drwxr-x--- 13 shinee shinee 4096 Aug  2 08:18 ..
-drwxr-xr-x  6 shinee shinee 4096 Aug  2 08:18 .git
-drwxr-xr-x  2 shinee shinee 4096 Aug  2 07:59 test
--rw-r--r--  1 shinee shinee    0 Aug  2 07:59 test.txt
-drwxrwxrwx  2 shinee shinee 4096 Aug  2 08:06 test_dir
--rwxrwxrwx  1 shinee shinee    0 Aug  2 08:07 test_file.txt
+drwxr-xr-x  5 ****** ****** 4096 Aug  2 08:12 .
+drwxr-x--- 13 ****** ****** 4096 Aug  2 08:18 ..
+drwxr-xr-x  6 ****** ****** 4096 Aug  2 08:18 .git
+drwxr-xr-x  2 ****** ****** 4096 Aug  2 07:59 test
+-rw-r--r--  1 ****** ******    0 Aug  2 07:59 test.txt
+drwxrwxrwx  2 ****** ****** 4096 Aug  2 08:06 test_dir
+-rwxrwxrwx  1 ****** ******    0 Aug  2 08:07 test_file.txt
 
 #### 📸 실행 결과 캡처
 ![전체 컨테이너 목록 확인](https://github.com/user-attachments/assets/bd57cba7-65e9-4d98-be23-fec26cf3a47f)

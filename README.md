@@ -149,11 +149,14 @@ b67d5d46ee66   ubuntu        "bash"                   2 days ago       Exited (1
 5352e981c997   ubuntu        "sleep 1000"             2 days ago       Exited (0) 2 days ago                              bind-container
 f09155710c48   ubuntu        "bash"                   2 days ago       Exited (0) 2 days ago                              quizzical_pare
 3589b4501f03   ubuntu        "bash"                   2 days ago       Exited (0) 2 days ago                              nice_diffie
-1dfbdfdefa05   web-test      "/docker-entrypoint.…"   2 days ago       Exited (255) 2 days ago     0.0.0.0:8080->80/tcp   nostalgic_cray                                        
+1dfbdfdefa05   web-test      "/docker-entrypoint.…"   2 days ago       Exited (255) 2 days ago     0.0.0.0:8080->80/tcp   nostalgic_cray
+```
+                              
 #### 📸 실행 결과 캡처
 ![전체 컨테이너 목록 확인](https://github.com/user-attachments/assets/b76893ef-4da4-4686-9c2c-bc56750d51f0)
 
 # 4. 다운로드된 이미지 목록 확인
+```bash
 $ docker images
 IMAGE                ID             DISK USAGE   CONTENT SIZE   EXTRA
 hello-world:latest   c3cbe1cc1aa5       25.9kB         9.49kB
@@ -173,10 +176,10 @@ Initialized empty Git repository in /home/******/study/.git/
 # 2. Git 사용자 정보 설정
 $ git config user.name "*****"
 $ git config user.email "**********.*****.com"
+```
+
 #### 📸 실행 결과 캡처
 ![전체 컨테이너 목록 확인](https://github.com/user-attachments/assets/c22b373a-acdc-4e0d-baf8-c19070dc5eb1)
-```
-```
 
 ---
 
@@ -192,6 +195,7 @@ drwxr-xr-x  2 ****** ****** 4096 Aug  2 07:59 test
 -rw-r--r--  1 ****** ******    0 Aug  2 07:59 test.txt
 drwxrwxrwx  2 ****** ****** 4096 Aug  2 08:06 test_dir
 -rwxrwxrwx  1 ****** ******    0 Aug  2 08:07 test_file.txt
+```
 
 #### 📸 실행 결과 캡처
 ![전체 컨테이너 목록 확인](https://github.com/user-attachments/assets/bd57cba7-65e9-4d98-be23-fec26cf3a47f)
@@ -217,11 +221,11 @@ Hello Ubuntu
 
 # 4. 컨테이너에서 빠져나오기
 root@f09155710c48:/# exit
+```
 
 #### 📸 실행 결과 캡처
 ![우분투 컨테이너 진입](https://github.com/user-attachments/assets/200a9c98-ca72-4316-9784-9e0d1a749705)
 
-```
 ## 7. 커스텀 이미지 제작 및 포트 매핑 (Nginx 웹 서버)
 ### 7.1 Dockerfile 작성 및 커스텀 포인트
 Nginx 베이스 이미지를 활용하여 커스텀 웹 페이지를 제공하는 이미지를 생성합니다.
@@ -267,6 +271,7 @@ web-test:latest      4e727198299d        238MB         63.1MB
 # 1. 1. 포트 매핑 적용하여 컨테이너 실행
 $ docker run -d -p 8080:80 test-web
 17c127e447cfc23556ad2b6b3de9c9d29eacd97d23a0708a87a5e0008f4b8078
+```
 
 #### 📸 웹 브라우저 접속 성공 증거
 > **접속 URL:** `http://localhost:8080`
@@ -275,7 +280,6 @@ $ docker run -d -p 8080:80 test-web
 > **💡 포트 매핑(8080:80)이 필요한 이유**
 > Docker 컨테이너는 호스트 격리 환경에서 동작하므로 외부 네트워크와 연결되지 않습니다.
 포트 매핑을 통해 외부(호스트)의 특정 포트로 들어오는 요청을 컨테이너 내부 포트로 전달해 주는 통로 역할을 생성해야만 브라우저에서 웹 서비스에 접속할 수 있습니다.
-```
 
 ---
 
@@ -362,6 +366,7 @@ CONTAINER ID   IMAGE         COMMAND                  CREATED             STATUS
 ## 8. 데이터 영속성(Volume) 테스트
 
 ### 8-1 바인드 마운트 (Bind Mount) : 호스트의 특정 디렉토리와 컨테이너 내부 폴더를 실시간 동기화하여 변경 사항을 보관합니다.
+```bash
 # 1. 호스트(내 컴퓨터)에 테스트용 디렉토리 및 파일 생성
 $ mkdir bind_test
 $ cd bind_test
@@ -441,11 +446,12 @@ $ git config --list
 user.name=*o****  (마스킹 처리)                             
 user.email=***n*******@gmail.com (마스킹 처리)
 init.defaultbranch=main (마스킹 처리)  
+```
 #### 📸 실행 결과 캡처
 ![Git 설정 내역 확인 및 마스킹 처리완료](https://github.com/user-attachments/assets/c8739296-e111-48ff-bb1c-0936ca9b4497)
+
 > **💡 주요 옵션 및 명령어 풀이**
 키보드에서 q 키를 눌러 명령어를 입력할 수 있는 프롬프트 상태로 돌아옵니다.
-```
 
 ---
 
@@ -453,9 +459,12 @@ init.defaultbranch=main (마스킹 처리)
 ```bash
 # 4. bind_test 작업 폴더를 Git 저장소(Repository)로 초기화
 $ git init 
+```
+
 ### VS Code 좌측 메뉴의 '나뭇가지 아이콘(소스 제어, Ctrl+Shift+G) 클릭
 ###커밋 메시지 작성 후 Commit(커밋) 버튼 클릭
 ### Publish to GitHub(GitHub에 게시) 또는 Sync Changes 버튼을 클릭하여 원격 저장소 연동 완료
+
 #### 📸 실행 결과 캡처
 ![Git 설정 내역 확인 및 마스킹 처리완료](https://github.com/user-attachments/assets/fff98a12-8c82-4b15-8ebc-f8e1109418d8)
 

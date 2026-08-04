@@ -179,7 +179,7 @@ $ git config user.email "**********.*****.com"
 ```
 
 #### 📸 실행 결과 캡처
-![전체 컨테이너 목록 확인](https://github.com/user-attachments/assets/c22b373a-acdc-4e0d-baf8-c19070dc5eb1)
+![git 저장소 확인](https://github.com/user-attachments/assets/c22b373a-acdc-4e0d-baf8-c19070dc5eb1)
 
 ---
 
@@ -198,7 +198,7 @@ drwxrwxrwx  2 ****** ****** 4096 Aug  2 08:06 test_dir
 ```
 
 #### 📸 실행 결과 캡처
-![전체 컨테이너 목록 확인](https://github.com/user-attachments/assets/bd57cba7-65e9-4d98-be23-fec26cf3a47f)
+![작업 폴더 내 생성된 파일 및 git 폴더 존재 확인](https://github.com/user-attachments/assets/c22b373a-acdc-4e0d-baf8-c19070dc5eb1)
 
 ----
 
@@ -212,10 +212,15 @@ $ docker run -it ubuntu bash
 root@8cf7403ce46f:/#                       # ← 내부 진입 성공
 
 # 2. 컨테이너 내부 명령어 수행 (현재 폴더의 파일 목록 확인)
-root@8cf7403ce46f:/#    $ls
+```bash
+root@8cf7403ce46f:/# ls
 bin  boot  dev  etc  home  lib  lib64  media  mnt  opt  proc  root  run  sbin  srv  sys  tmp  usr  var
+```
+#### 📸 실행 결과 캡처!
+[현재 컨테이너 목록 확인](https://github.com/user-attachments/assets/bd57cba7-65e9-4d98-be23-fec26cf3a47f)
 
 # 3. echo 명령어 수행
+```bash
 root@f09155710c48:/# echo "Hello Ubuntu"           
 Hello Ubuntu
 

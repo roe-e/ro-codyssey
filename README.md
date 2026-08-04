@@ -219,8 +219,8 @@ bin  boot  dev  etc  home  lib  lib64  media  mnt  opt  proc  root  run  sbin  s
 #### 📸 실행 결과 캡처!
 ![현재 컨테이너 목록 확인](https://github.com/user-attachments/assets/bd57cba7-65e9-4d98-be23-fec26cf3a47f)
 
-# 3. echo 명령어 수행
 ```bash
+# 3. echo 명령어 수행
 root@f09155710c48:/# echo "Hello Ubuntu"           
 Hello Ubuntu
 

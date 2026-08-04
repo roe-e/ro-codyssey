@@ -140,7 +140,7 @@ This message shows that your installation appears to be working correctly.
 $ docker ps
 CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
 
-# 3. 전체 컨테이너 목록 확인 (종료된 hello-world 포함)
+# 3. 전체 컨테이너 목록 확인 (종료된 컨테이너 포함)
 $ docker ps -a
 CONTAINER ID   IMAGE         COMMAND                  CREATED          STATUS                      PORTS                  NAMES
 80d1151a188f   hello-world   "/hello"                 12 seconds ago   Exited (0) 11 seconds ago                          wizardly_clarke

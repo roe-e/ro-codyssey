@@ -17,7 +17,7 @@ Ubuntu 컨테이너 진입 및 내부 명령 수행
 바인드 마운트 및 도커 볼륨 영속성 검증
 Git 사용자 설정 및 GitHub/VS Code 연동
 
-## 4. 📂 프로젝트 디렉토리 구조 (Directory Structure)
+## 4. 프로젝트 디렉토리 구조 (Directory Structure)
 본 프로젝트는 완벽한 환경 재현성을 위해 아래와 같은 표준 구조로 설계되었습니다.
 
 ```text
@@ -28,7 +28,7 @@ ro-codyssey/
 ├── index.html             # 웹 서버 테스트용 메인 페이지
 └── README.md              # 프로젝트 환경 구축 및 기술 문서
 
-> * 📜 파일별 역할
+> * 파일별 역할
 > * Dockerfile: nginx:latest를 기반으로 커스텀 index.html을 복사하고 80번 포트를 명세하는 이미지 빌드 파일
 > * index.html: Docker 웹 서버 정상 동작 확인을 위한 샘플 HTML 웹 페이지
 > * README.md: 기술 개념, 실행 증거, 트러블슈팅 및 환경 재현 절차가 담긴 메인 문서

@@ -7,7 +7,7 @@
 * 주요 수행 내용:
 > * Linux CLI 조작, 파일 권한 설정, Docker 커텀 이미지 빌드, 포트 매핑, 바인드 마운트 및 볼륨 영속성 검증, Git/GitHub 연동
 
-## 2. 프프로젝트 디렉토리 구조
+## 2. 프로젝트 디렉토리 구조
 본 프로젝트는 완벽한 환경 재현성을 위해 아래와 같은 표준 구조로 설계되었습니다.
 
 ```text
@@ -19,13 +19,39 @@
 └── README.md              # 프로젝트 환경 구축 및 기술 문서
 ```
 
+> **💡주요 파일별 역할**
+> * Dockerfile: 
+> nginx:latest를 기반으로 커스텀 index.html을 복사하고 80번 포트를 명세하는 이미지 빌드 파일
+> * index.html: 
+> Docker 웹 서버 정상 동작 확인을 위한 샘플 HTML 웹 페이지
+> README.md: 
+> 기술 개념, 실행 증거, 트러블슈팅 및 환경 재현 절차가 담긴 메인 문서
+
 ---
 
-## 3. 💻 실행 환경
+## 3. 실행 환경 및 상태
 * OS:macOS (교육장, OrbStack 활용) / Windows 11 (집, Docker Desktop)
 * 터미널/쉘:zsh / bash / PowerShell
 * Docker 버전: Docker version 29.6.2 (OrbStack / Docker Desktop)
 * Git 버전: git version 2.55.0
+
+🔍Docker 데몬 및 시스템 서비스 상태 점검
+```bash
+#### 1. Docker 버전 확인 (클라이언트 및 엔진 설치 여부)
+$ docker version
+Client: Docker Engine - Community
+ Version:           29.6.2
+
+#### 2. Docker 시스템 전체 상태 확인
+$ docker info
+Containers: 6
+ Running: 0
+ Paused: 0
+ Stopped: 6
+Images: 5
+Server Version: 29.6.2
+Operating System: Docker Desktop
+```
 
 * 권한 관리: macOS/Windows 환경에서는 Docker Desktop 및 OrbStack을 활용하여 별도의 sudo 권한 없이 일반 사용자 권한으로 명령어를 수행했습니다.
 
@@ -62,21 +88,14 @@ Git 사용자 설정 및 GitHub/VS Code 연동
 
 ```
 
-> **💡파일별 역할**
-> * Dockerfile: 
-> nginx:latest를 기반으로 커스텀 index.html을 복사하고 80번 포트를 명세하는 이미지 빌드 파일
-> * index.html: 
-> Docker 웹 서버 정상 동작 확인을 위한 샘플 HTML 웹 페이지
-> README.md: 
-> 기술 개념, 실행 증거, 트러블슈팅 및 환경 재현 절차가 담긴 메인 문서
-
 ---
 
 ## 6. 미션 수행 상세 로그 및 검증
 ### 6.1 터미널 조작 및 파일 권한
 ```bash
 ### 기초 명령 수행: pwd, ls -la, mkdir, cp, mv, rm 실행 확인
-#### 1. 현재 위치한 확인 
+#### 1. 현재 위치한 확인 [2026-08-02 07:58:12 KST] 
+현재 작업 위치 확인 및 디렉터리 생성
 $ pwd                          
 /home/****** 
 
@@ -90,7 +109,7 @@ $ cd test
 $ pwd
 /home/******/test         
 
-#### 4. 파일 생성, 복사, 이름변경, 삭제 
+#### 4. 파일 생성, 복사, 이름변경, 삭제 [2026-08-02 07:59:05 KST] 
 $ touch test.txt
 $ cp test.txt test_copy.txt
 $ mv test_copy.txt renamed.txt
@@ -100,7 +119,7 @@ $ rm renamed.txt
 
 ----
 
-#### 6. 최종 작업 결과 확인
+#### 6. 최종 작업 결과 확인 [2026-08-02 07:59:40 KST] 
 $ ls -l
 total 4
 drwxr-xr-x 2 ****** ****** 4096 Aug  2 07:59 test
@@ -190,32 +209,16 @@ drwxrwxrwx 2 ****** ****** 4096 Aug  2 08:06 test_dir
 > * PowerShell(관리자 권한)에서 wsl --install 실행 후 재부팅
 > * Docker Desktop 공식 홈페이지에서 설치 파일 다운로드 및 설치
 
-#### 1. Docker 정상 작동 확인
-```bash
-#### 1. Docker 버전 확인 (클라이언트 및 엔진 설치 여부)
-$ docker version
-Client: Docker Engine - Community
- Version:           29.6.2
-
-#### 2. Docker 시스템 전체 상태 확인
-$ docker info
-Containers: 6
- Running: 0
- Paused: 0
- Stopped: 6
-Images: 5
-Server Version: 29.6.2
-Operating System: Docker Desktop
 
 ---
 
-#### 4. hello-world 이미지 다운로드 및 컨테이너 실행 
+#### 1. hello-world 이미지 다운로드 및 컨테이너 실행 
 $ docker run hello-world
 
 Hello from Docker!
 This message shows that your installation appears to be working correctly.
 
-##### 5.  컨테이너 목록 확인
+##### 2.  컨테이너 목록 확인
 $ docker ps
 CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
 
@@ -235,7 +238,7 @@ f09155710c48   ubuntu        "bash"                   2 days ago       Exited (0
 ![전체 컨테이너 목록 확인](https://github.com/user-attachments/assets/b76893ef-4da4-4686-9c2c-bc56750d51f0)
 
 ```
-#### 6. 다운로드된 이미지 목록 확인
+#### 3. 다운로드된 이미지 목록 확인
 ```bash
 $ docker images
 IMAGE                ID             DISK USAGE   CONTENT SIZE   EXTRA
@@ -276,18 +279,18 @@ f09155710c48   ubuntu        "bash"                   2 days ago       Exited (0
 3589b4501f03   ubuntu        "bash"                   2 days ago       Exited (0) 2 days ago                                                   nice_diffie
 1dfbdfdefa05   web-test      "/docker-entrypoint.…"   2 days ago       Exited (255) 2 days ago       0.0.0.0:8080->80/tcp                      nostalgic_cray
 
-# 3. 컨테이너 내부 실행 로그 확인
+# 4. 컨테이너 내부 실행 로그 확인
 $ docker logs 17c127e447cf   
 /docker-entrypoint.sh: /docker-entrypoint.d/ is not empty, will attempt to perform configuration
 /docker-entrypoint.sh: Looking for shell scripts in /docker-entrypoint.d/
 /docker-entrypoint.sh: Launching /docker-entrypoint.d/10-listen-on-ipv6-by-default.sh ~
 
-# 4. 컨테이너 리소스 사용량 실시간 확인 (Ctrl+c로 종료)
+# 5. 컨테이너 리소스 사용량 실시간 확인 (Ctrl+c로 종료)
 $ docker stats                        
 CONTAINER ID   NAME             CPU %     MEM USAGE / LIMIT    MEM %     NET I/O           BLOCK I/O         PIDS
 17c127e447cf   ecstatic_raman   0.00%     12.71MiB / 7.71GiB   0.16%     3.88kB / 2.46kB   10.4MB / 12.3kB   13
 
-# 5. 미사용 실행 컨테이너 정지
+# 6. 미사용 실행 컨테이너 정지
 $ docker stop 80d1151a188f
 80d1151a188f
 $ docker stop 09c83497ee07
@@ -313,7 +316,7 @@ f09155710c48   ubuntu        "bash"                   2 days ago          Exited
 3589b4501f03   ubuntu        "bash"                   2 days ago          Exited (0) 2 days ago                                                   nice_diffie
 1dfbdfdefa05   web-test      "/docker-entrypoint.…"   2 days ago          Exited (255) 2 days ago       0.0.0.0:8080->80/tcp                      nostalgic_cray      
 
-# 6. 불필요한 종료 컨테이너 정리 및 삭제
+# 7. 불필요한 종료 컨테이너 정리 및 삭제
 $ docker rm 09c83497ee07
 09c83497ee07         
 $ docker rm b67d5d46ee66
@@ -327,7 +330,7 @@ $ docker rm 3589b4501f03
 $ docker rm 1dfbdfdefa05
 1dfbdfdefa05
 
-# 7. 정돈 후 최종 컨테이너 목록 확인
+# 8. 정돈 후 최종 컨테이너 목록 확인
 $ docker ps -a
 CONTAINER ID   IMAGE         COMMAND                  CREATED             STATUS                        PORTS                                     NAMES
 17c127e447cf   my-web        "/docker-entrypoint.…"   30 minutes ago      Up 30 minutes                 0.0.0.0:8080->80/tcp, [::]:8080->80/tcp   ecstatic_raman

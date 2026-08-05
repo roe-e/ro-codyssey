@@ -17,7 +17,7 @@ Ubuntu 컨테이너 진입 및 내부 명령 수행
 바인드 마운트 및 도커 볼륨 영속성 검증
 Git 사용자 설정 및 GitHub/VS Code 연동
 
-## 📂 프로젝트 디렉토리 구조 (Directory Structure)
+## 4. 📂 프로젝트 디렉토리 구조 (Directory Structure)
 본 프로젝트는 완벽한 환경 재현성을 위해 아래와 같은 표준 구조로 설계되었습니다.
 
 ```text
@@ -28,7 +28,7 @@ ro-codyssey/
 ├── index.html             # 웹 서버 테스트용 메인 페이지
 └── README.md              # 프로젝트 환경 구축 및 기술 문서
 
-📜 파일별 역할
+> * 📜 파일별 역할
 > * Dockerfile: nginx:latest를 기반으로 커스텀 index.html을 복사하고 80번 포트를 명세하는 이미지 빌드 파일
 > * index.html: Docker 웹 서버 정상 동작 확인을 위한 샘플 HTML 웹 페이지
 > * README.md: 기술 개념, 실행 증거, 트러블슈팅 및 환경 재현 절차가 담긴 메인 문서
@@ -62,7 +62,9 @@ $ ls -l
 total 4
 drwxr-xr-x 2 ****** ****** 4096 Aug  2 07:59 test
 -rw-r--r-- 1 ****** ******    0 Aug  2 07:59 test.txt
+
 ```
+
 > **💡 절대 경로와 상대경로**
 > * 절대경로: /home/****** 와 같이 최상위 루트(/) 디렉터리부터 시작하여 목표 파일/폴더까지의 전체 경로
 > * 상대경로: ./file.txt 와 같이 현재 내가 위치한 디렉터리를 기준으로 한 경로
@@ -332,11 +334,11 @@ $ docker run -d -p 8080:80 test-web
 
 ---
 
-> **💡개발 환경 재현**
-> * 어느 환경에서나 동일하게 하려면 아래 명령어를 순서대로 실행하세요.
+> **💡개발 환경 재현 및 검증 절차**
+> * 본 프로젝트의 실행 환경을 재현하려면 아래 순서대로 명령어를 실행하여 Docker 환경을 구성 및 검증할 수 있습니다.
 
 ```bash
-# 1. 리포지토리 클론 및 이동
+# 1. 저장소 복제 및 이동
 $ git clone [https://github.com/roe-e/ro-codyssey.git](https://github.com/roe-e/ro-codyssey.git)
 cd ro-codyssey
 

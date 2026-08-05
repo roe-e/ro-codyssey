@@ -29,12 +29,12 @@ ro-codyssey/
 └── README.md              # 프로젝트 환경 구축 및 기술 문서
 ```
 > **💡파일별 역할**
-> Dockerfile: 
-> * nginx:latest를 기반으로 커스텀 index.html을 복사하고 80번 포트를 명세하는 이미지 빌드 파일
-> index.html: 
-> * Docker 웹 서버 정상 동작 확인을 위한 샘플 HTML 웹 페이지
+> * Dockerfile: 
+> nginx:latest를 기반으로 커스텀 index.html을 복사하고 80번 포트를 명세하는 이미지 빌드 파일
+> * index.html: 
+> Docker 웹 서버 정상 동작 확인을 위한 샘플 HTML 웹 페이지
 > README.md: 
-> * 기술 개념, 실행 증거, 트러블슈팅 및 환경 재현 절차가 담긴 메인 문서
+> 기술 개념, 실행 증거, 트러블슈팅 및 환경 재현 절차가 담긴 메인 문서
 
 
 ## 4. 터미널 조작 및 파일 권한 실습 로그
@@ -110,7 +110,9 @@ drwxr-xr-x 2 ****** ****** 4096 Aug  2 07:59 test
 -rw-r--r-- 1 ****** ******    0 Aug  2 07:59 test.txt
 drwxrwxrwx 2 ****** ****** 4096 Aug  2 08:06 test_dir
 -rwxr-xr-x 1 ****** ******    0 Aug  2 08:07 test_file.txt
+
 ```
+
 > **💡권한 분석 및 결과 해설**
 * 기본 권한 상태:
 > * test_dir (drwxr-xr-x): 디렉터리(d)이며, 755 권한(소유자: rwx, 그룹: r-x, 기타 사용자: r-x)이 설정되어 있습니다.
@@ -196,9 +198,9 @@ my-web:latest        5f91108394f1       92.7MB         26.1MB
 ubuntu:latest        3131b4cc82a7        161MB         45.3MB    U
 web-test:latest      4e727198299d        238MB         63.1MB    U
 ```
+
 ---
 
-```bash
 > **💡📦 Docker 이미지 vs 컨테이너 (Image vs Container) 기술 개념**
 > * Docker 이미지 (Image / 불변성):
 > * 컨테이너를 생성하기 위한 읽기 전용 설계도(붕어빵 틀)
@@ -206,6 +208,8 @@ web-test:latest      4e727198299d        238MB         63.1MB    U
 > * Docker 컨테이너 (Container / 생애주기):
 > * 이미지라는 설계도를 바탕으로 메모리에 격리되어 실행되는 실체(붕어빵)
 > * 컨테이너 안에서 파일을 수정하거나 삭제해도 원본 이미지에는 영향을 주지 않으며, 생성(Create) ➔ 실행(Start) ➔ 중지(Stop) ➔ 삭제(Destroy)의 생애주기를 갖습니다.
+
+--- 
 
 ### 5.5 Git 저장소 초기화 및 설정
 ```bash

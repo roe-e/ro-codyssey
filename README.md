@@ -1,4 +1,4 @@
-Markdown
+
 # 🚀 1주차 미션: 나만의 개발 워크스테이션 만들기 
 
 ## 1. 📌 미션 개요
@@ -18,6 +18,7 @@ Markdown
 ├── index.html             # 웹 서버 테스트용 메인 페이지
 └── README.md              # 프로젝트 환경 구축 및 기술 문서
 ```
+
 ---
 
 ## 3. 💻 실행 환경
@@ -28,13 +29,13 @@ Markdown
 
 * 권한 관리: macOS/Windows 환경에서는 Docker Desktop 및 OrbStack을 활용하여 별도의 sudo 권한 없이 일반 사용자 권한으로 명령어를 수행했습니다.
 
-## 3. ⚡ 개발 환경 재현 및 검증 절차
+## 4. ⚡ 개발 환경 재현 및 검증 절차
 > * 본 프로젝트의 실행 환경을 재현하려면 아래 순서대로 명령어를 실행하여 Docker 환경을 구성 및 검증할 수 있습니다.
 
 ```bash
 # 1. 저장소 복제 및 이동
 $ git clone [https://github.com/roe-e/ro-codyssey.git](https://github.com/roe-e/ro-codyssey.git)
-cd ro-codyssey
+cd **-********
 
 # 2. 커스텀 Docker 이미지 빌드
 $ docker build -t test-web .
@@ -48,7 +49,7 @@ $ curl -I http://localhost:8080
 
 ---
 
-## 4. ✅ 수행 항목 체크리스트 
+## 5. ✅ 수행 항목 체크리스트 
 터미널 기본 조작 및 파일 권한 실습
 Docker 설치 및 데몬 상태 점검
 Docker 기본 운영 명령(이미지, 컨테이너, 로그, 리소스) 숙달
@@ -71,8 +72,8 @@ Git 사용자 설정 및 GitHub/VS Code 연동
 
 ---
 
-## 5. 🛠️ 미션 수행 상세 로그 및 검증
-### 5.1 터미널 조작 및 파일 권한
+## 6. 🛠️ 미션 수행 상세 로그 및 검증
+### 6.1 터미널 조작 및 파일 권한
 ```bash
 ### 기초 명령 수행: pwd, ls -la, mkdir, cp, mv, rm 실행 확인
 #### 1. 현재 위치한 확인 
@@ -95,7 +96,11 @@ $ cp test.txt test_copy.txt
 $ mv test_copy.txt renamed.txt
 $ rm renamed.txt
 
-#### 5. 최종 작업 결과 확인
+### 5. 권한 변경 후 작업 디렉터리 최종 상태 확인 (.git 포함)
+
+----
+
+#### 6. 최종 작업 결과 확인
 $ ls -l
 total 4
 drwxr-xr-x 2 ****** ****** 4096 Aug  2 07:59 test
@@ -119,8 +124,7 @@ drwxr-xr-x 2 ****** ****** 4096 Aug  2 07:59 test
 >   * 권장 사례: 로컬 개인 개발 환경, 팀원 간 리포지토리 공유 시. 프로젝트 폴더의 절대 위치가 사용자마다 달라져도 코드 수정 없이 그대로 실행할 수 있습니다.
 ---
 
-### 파일 권한 비교
-> * 실험 대상: test_dir (폴더), test_file.txt (파일)
+### 파일 권한 실습 및 분석
 
 ```bash
 #### 1. 테스트용 폴더 및 파일 생성
@@ -178,21 +182,22 @@ drwxrwxrwx 2 ****** ****** 4096 Aug  2 08:06 test_dir
 
 ---
     
-## 5-2. Docker 설치 및 기본 점검
-### 5.1 Docker 환경 구축
+## 6.2 Docker 설치 및 기본 점검
+
+#### 0. Docker 환경 구축
 > * 운영체제 및 환경: Windows (WSL2 기반 Docker Desktop)
 > * 설치 절차:
 > * PowerShell(관리자 권한)에서 wsl --install 실행 후 재부팅
 > * Docker Desktop 공식 홈페이지에서 설치 파일 다운로드 및 설치
 
-### Docker 정상 작동 확인
+#### 1. Docker 정상 작동 확인
 ```bash
-# 1. Docker 버전 확인 (클라이언트 및 엔진 설치 여부)
+#### 1. Docker 버전 확인 (클라이언트 및 엔진 설치 여부)
 $ docker version
 Client: Docker Engine - Community
  Version:           29.6.2
 
-# 2. Docker 시스템 전체 상태 확인
+#### 2. Docker 시스템 전체 상태 확인
 $ docker info
 Containers: 6
  Running: 0
@@ -202,22 +207,18 @@ Images: 5
 Server Version: 29.6.2
 Operating System: Docker Desktop
 
-
 ---
 
-# 3. 기본 실행 테스트
-
-# 1. hello-world 이미지 다운로드 및 컨테이너 실행
+#### 4. hello-world 이미지 다운로드 및 컨테이너 실행 
 $ docker run hello-world
 
 Hello from Docker!
 This message shows that your installation appears to be working correctly.
 
-# 2. 현재 실행 중인 컨테이너 목록 확인
+##### 5.  컨테이너 목록 확인
 $ docker ps
 CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
 
-# 3. 전체 컨테이너 목록 확인 (종료된 컨테이너 포함)
 $ docker ps -a
 CONTAINER ID   IMAGE         COMMAND                  CREATED          STATUS                      PORTS                  NAMES
 80d1151a188f   hello-world   "/hello"                 12 seconds ago   Exited (0) 11 seconds ago                          wizardly_clarke
@@ -227,12 +228,14 @@ b67d5d46ee66   ubuntu        "bash"                   2 days ago       Exited (1
 f09155710c48   ubuntu        "bash"                   2 days ago       Exited (0) 2 days ago                              quizzical_pare
 3589b4501f03   ubuntu        "bash"                   2 days ago       Exited (0) 2 days ago                              nice_diffie
 1dfbdfdefa05   web-test      "/docker-entrypoint.…"   2 days ago       Exited (255) 2 days ago     0.0.0.0:8080->80/tcp   nostalgic_cray
+
 ```
                               
 #### 📸 실행 결과 캡처
 ![전체 컨테이너 목록 확인](https://github.com/user-attachments/assets/b76893ef-4da4-4686-9c2c-bc56750d51f0)
 
-### 5.4 다운로드된 이미지 목록 확인
+```
+#### 6. 다운로드된 이미지 목록 확인
 ```bash
 $ docker images
 IMAGE                ID             DISK USAGE   CONTENT SIZE   EXTRA
@@ -245,209 +248,17 @@ web-test:latest      4e727198299d        238MB         63.1MB    U
 
 ---
 
-> **💡📦 Docker 이미지 vs 컨테이너 (Image vs Container) 기술 개념**
-> * Docker 이미지 (Image / 불변성):
-> * 컨테이너를 생성하기 위한 읽기 전용 설계도(붕어빵 틀)
-> * 한번 생성된 이미지는 수정되지 않는 불변성(Immutability)을 가집니다.
-> * Docker 컨테이너 (Container / 생애주기):
-> * 이미지라는 설계도를 바탕으로 메모리에 격리되어 실행되는 실체(붕어빵)
-> * 컨테이너 안에서 파일을 수정하거나 삭제해도 원본 이미지에는 영향을 주지 않으며, 생성(Create) ➔ 실행(Start) ➔ 중지(Stop) ➔ 삭제(Destroy)의 생애주기를 갖습니다.
+> **💡📦 Docker 이미지 vs 컨테이너 
+> * Docker 이미지:
+> * 컨테이너를 생성하기 위한 읽기 전용 설계도(불변성)
+> * 한번 생성된 이미지는 수정되지 않는 불변성을 가집니다
+> * Docker 컨테이너:
+> * 이미지라는 설계도를 바탕으로 메모리에 격리되어 실행되는 실체
+> * 컨테이너 안에서 파일을 수정하거나 삭제해도 원본 이미지에는 영향을 주지 않으며, 생성 ➔ 실행 ➔ 중지 ➔ 삭제의 생애주기를 갖습니다.
 
 --- 
 
-### 5.5 Git 저장소 초기화 및 설정
-```bash
-# 1. 작업 디렉터리 내 Git 저장소 초기화
-$ git init
-Initialized empty Git repository in /home/******/study/.git/
-
-# 2. Git 사용자 정보 설정
-$ git config user.name "*****"
-$ git config user.email "**********.*****.com"
-```
-
-#### 📸 실행 결과 캡처
-![git 저장소 확인](https://github.com/user-attachments/assets/c22b373a-acdc-4e0d-baf8-c19070dc5eb1)
-
----
-
-### 5.6 작업 디렉터리 파일 및 권한 확인
-```bash
-# 작업 폴더 내 생성된 파일 및 Git(.git) 폴더 존재 확인
-$ ls -al
-total 20
-drwxr-xr-x  5 ****** ****** 4096 Aug  2 08:12 .
-drwxr-x--- 13 ****** ****** 4096 Aug  2 08:18 ..
-drwxr-xr-x  6 ****** ****** 4096 Aug  2 08:18 .git
-drwxr-xr-x  2 ****** ****** 4096 Aug  2 07:59 test
--rw-r--r--  1 ****** ******    0 Aug  2 07:59 test.txt
-drwxrwxrwx  2 ****** ****** 4096 Aug  2 08:06 test_dir
--rwxrwxrwx  1 ****** ******    0 Aug  2 08:07 test_file.txt
-```
-
-#### 📸 실행 결과 캡처
-![작업 폴더 내 생성된 파일 및 git 폴더 존재 확인](https://github.com/user-attachments/assets/c22b373a-acdc-4e0d-baf8-c19070dc5eb1)
-
-----
-
-## 6. 컨테이너 실행 실습 및 분석
-### 6.1 Ubuntu 컨테이너 진입 및 명령 수행
-대화형 터미널 옵션(`-it`)을 사용하여 Ubuntu 컨테이너를 생성하고 내부 bash 쉘로 진입하여 기본 명령을 테스트합니다.
-
-```bash
-# 1. Ubuntu 컨테이너 생성 및 내부 접속 (-it 옵션 활용)
-$ docker run -it ubuntu bash                         
-root@8cf7403ce46f:/#                       # ← 내부 진입 성공
-
-# 2. 컨테이너 내부 명령어 수행 (현재 폴더의 파일 목록 확인)
-```bash
-root@8cf7403ce46f:/# ls
-bin  boot  dev  etc  home  lib  lib64  media  mnt  opt  proc  root  run  sbin  srv  sys  tmp  usr  var
-```
-#### 📸 실행 결과 캡처!
-![현재 컨테이너 목록 확인](https://github.com/user-attachments/assets/bd57cba7-65e9-4d98-be23-fec26cf3a47f)
-
-```bash
-# 3. echo 명령어 수행
-root@f09155710c48:/# echo "Hello Ubuntu"           
-Hello Ubuntu
-
-# 4. 컨테이너에서 빠져나오기 (프로세스 종료)
-root@f09155710c48:/# exit
-```
-
-> **💡컨테이너 종료 방식 참고**
-> * exit: 컨테이너 내부 쉘을 빠져나오면서 컨테이너 프로세스를 종료시킵니다.
-> * Ctrl + P + Q: 컨테이너를 백그라운드 유지 상태(Running)로 두고 터미널만 빠져나옵니다.
-
-#### 📸 실행 결과 캡처
-![우분투 컨테이너 진입](https://github.com/user-attachments/assets/200a9c98-ca72-4316-9784-9e0d1a749705)
-
----
-
-## 7. 커스텀 이미지 제작 및 포트 매핑 (Nginx 웹 서버)
-### 7.1 Dockerfile 작성 및 커스텀 포인트
-Nginx 베이스 이미지를 활용하여 커스텀 웹 페이지를 제공하는 이미지를 생성합니다.
-> * 베이스 이미지: nginx:latest
-> * 주요 작업:
-> * 1. 커스텀 index.html 작성
-> * 2. 기본 Nginx 메인 페이지 대신 커스텀 index.html 복사
-> * 3. 컨테이너 내부 웹 서비스 포트(80) 명시
-
-```bash
-# 1. 실습 파일(Dockerfile, index.html) 생성
-$ touch Dockerfile index.html
-
-# 2. VSCode로 열어서 Docker 파일 작성
-$ code .
-
-# Dockerfile
-FROM nginx:latest                      # 1. Nginx 베이스 이미지 지정
-COPY index.html /usr/share/nginx/html  # 2. 커스텀 HTML 파일을 컨테이너 내부로 복사
-EXPOSE 80                              # 3. 80번 포트 사용 명시
-
-# 3. 커스텀 웹페이지 내용 작성 및 확인
-$ echo '<h1>Hello! This is MY Custom Docker!</h1>' > index.html  
-$ cat index.html                    
-<h1>Hello! This is MY Custom Docker!</h1> 
-
-# 4. 커스텀 Docker 이미지 빌드 (-t test-web)
-$ docker build -t test-web .
-
-# 5. 이미지 생성 확인
-$ docker images                     # 이미지 확인
-IMAGE                ID             DISK USAGE   CONTENT SIZE   EXTRA # ← 결과값  
-hello-world:latest   c3cbe1cc1aa5       25.9kB         9.49kB    U
-my-food:latest       d74fc8b9c0c2        157MB         41.6MB    U
-my-web:latest        5f91108394f1       92.7MB         26.1MB    U
-ubuntu:latest        3131b4cc82a7        161MB         45.3MB    U
-web-test:latest      4e727198299d        238MB         63.1MB
-
-```
-
----
-
-### 7.2 포트 매핑 및 컨테이너 실행 검증
-호스트의 `8080` 포트와 컨테이너의 `80` 포트를 매핑(`-p 8080:80`)하여 백그라운드(`-d`)로 실행합니다.
-
-```bash
-# 1. 포트 매핑 적용하여 컨테이너 실행
-$ docker run -d -p 8080:80 test-web
-17c127e447cfc23556ad2b6b3de9c9d29eacd97d23a0708a87a5e0008f4b8078
-```
-
-#### 📸 웹 브라우저 접속 성공 증거
-> * 접속 URL: `http://localhost:8080`
-![웹 브라우저 접속화면](https://github.com/user-attachments/assets/fd0506eb-9473-46c4-9a32-6928afb8a48b)
-
-> **💡포트 매핑(8080:80)이 필요한 이유**
-> * Docker 컨테이너는 격리된 가상 네트워크를 사용하므로, 외부(호스트 컴퓨터)에서 접근하려면 호스트 포트와 컨테이너 포트를 연결(-p 8080:80)해 주는 포트 포워딩 통로가 필요합니다.
-
-> **💡포트 노출 시 보안 고려사항**
-> * 포트 매핑(-p 8080:80) 시 0.0.0.0:8080:80 형태로 노출되어 외부 네트워크 전체에 개방될 수 있습니다. 
-> * 보안을 강화하려면 다음과 같이 로컬 바인딩 제한을 권장합니다.
-
-> **💡포트 바인딩 방식에 따른 보안 고려사항**
-> * -p 8080:80 (기본값, 0.0.0.0:8080): 외부 인터넷이나 같은 Wi-Fi를 쓰는 타인도 내 서버에 접속할 수 있어 보안에 주의해야 합니다.
-> * -p 127.0.0.1:8080:80 (로컬 바인딩): 오직 내 컴퓨터(Loopback) 내부에서만 접속을 허용하여 개인 개발 및 테스트 시 해킹 위험을 차단합니다.
-
-```bash
-# 로컬호스트(내 컴퓨터)에서만 접근 가능하도록 방화벽 범위 제한
-$ docker run -d -p 127.0.0.1:8080:80 test-web
-
-```
-
-> **💡포트 충돌 진단 및 해결 절차**
-> * docker run을 실행했을 때 bind: address already in use라는 에러가 난다면, 내가 사용하려는 포트(예: 8080)를 이미 다른 프로그램이 차지해서 쓰고 있다는 뜻입니다. 
-
-아래 3단계 절차를 순서대로 진행하면 3분 안에 해결할 수 있습니다.
-
-> * 1. 1단계: 어떤 프로그램이 포트를 쓰는지 확인하기 (PID 찾기)
-> * 포트를 독점하고 있는 범인 프로그램의 주민등록번호같은 고유 번호(PID, Process ID)를 먼저 찾아야 합니다.
-> * macOS (교육장) / Linux:
-```bash
-  lsof -i :8080
-> * macOS (교육장) / Linux:
-```
-
-```bash
-  PowerShell
-  netstat -ano | findstr :8080
-```
-
----
-
-> * 2. 2단계: 충돌하는 프로그램 종료하기 (2가지 방법 중 선택)
-> * 방법 A. 방해하는 프로그램 강제 종료하기 (가장 확실한 방법)
-> * 1단계에서 확인한 PID 번호(예: 12345)를 넣어 해당 프로세스를 종료합니다.
-> * macOS (교육장) / Linux:
-```bash
-  kill -9 12345
-> * macOS (교육장) / Linux:
-```
-
-```bash
-  PowerShell
-  taskkill /F /PID 12345
-```
-> * 방법 B. 포트 번호를 바꿔서 실행하기 (대안)
-> * 기존에 실행 중인 프로그램을 끌 수 없는 상황이라면, 호스트(내 컴퓨터)의 포트 번호만 빈 포트(예: 8081)로 바꿔서 실행합니다.
-```bash
-# 8080 대신 8081 포트로 변경하여 컨테이너 실행
-$ docker run -d --name my-web -p 8081:80 test-web
-
-# 변경된 포트로 접속 테스트
-$ curl -I http://localhost:8081
-
----
-> * 3. 3단계: 충돌하는 프로그램 종료하기 (2가지 방법 중 선택)
-
----
-
-### 7.3 Docker 운영 명령어 수행 (상태, 로그, 리소스, 삭제)
-
-```bash
-# 1. 실행 중인 컨테이너 및 포트 매핑 상태 확인
+### 6.2.1 실행 중인 컨테이너 및 포트 매핑 상태 확인
 $ docker ps
 CONTAINER ID   IMAGE     COMMAND                  CREATED         STATUS         PORTS                                     NAMES
 17c127e447cf   my-web    "/docker-entrypoint.…"   4 minutes ago   Up 4 minutes   0.0.0.0:8080->80/tcp, [::]:8080->80/tcp   ecstatic_raman
@@ -523,12 +334,130 @@ CONTAINER ID   IMAGE         COMMAND                  CREATED             STATUS
 8cf7403ce46f   ubuntu        "bash"                   About an hour ago   Exited (127) 39 minutes ago                                             pensive_bohr
 80d1151a188f   hello-world   "/hello"                 About an hour ago   Exited (0) 6 minutes ago                                                wizardly_clarke
 ```
+
 ---
 
-## 8. 데이터 영속성(Volume) 테스트
+## 6.3 Ubuntu 컨테이너 실행 실습 및 분석
 
-### 8-1 바인드 마운트 (Bind Mount)
-> * 호스트의 특정 디렉토리와 컨테이너 내부 폴더를 실시간 동기화하여 변경 사항을 원본에 직접 반영합니다.
+```bash
+# 1. Ubuntu 컨테이너 생성 및 내부 bash 쉘 접속 (-it 옵션 활용)
+$ docker run -it ubuntu bash                         
+root@8cf7403ce46f:/#                       # ← 내부 진입 성공
+
+# 2. 컨테이너 내부 명령어 수행 (현재 폴더의 파일 목록 확인)
+```bash
+root@8cf7403ce46f:/# ls
+bin  boot  dev  etc  home  lib  lib64  media  mnt  opt  proc  root  run  sbin  srv  sys  tmp  usr  var
+```
+#### 📸 실행 결과 캡처!
+![현재 컨테이너 목록 확인](https://github.com/user-attachments/assets/bd57cba7-65e9-4d98-be23-fec26cf3a47f)
+
+```bash
+# 3. echo 명령어 수행
+root@f09155710c48:/# echo "Hello Ubuntu"           
+Hello Ubuntu
+
+# 4. 컨테이너에서 빠져나오기 (프로세스 종료)
+root@f09155710c48:/# exit
+```
+
+> **💡컨테이너 종료 방식 참고**
+> * exit: 컨테이너 내부 쉘을 빠져나오면서 컨테이너 프로세스를 종료시킵니다.
+> * Ctrl + P + Q: 컨테이너를 백그라운드 유지 상태(Running)로 두고 터미널만 빠져나옵니다.
+
+#### 📸 실행 결과 캡처
+![우분투 컨테이너 진입](https://github.com/user-attachments/assets/200a9c98-ca72-4316-9784-9e0d1a749705)
+
+---
+
+## 6.4 커스텀 이미지 제작 및 포트 매핑 (Nginx 웹 서버)
+### Dockerfile 작성 및 커스텀 포인트
+Nginx 베이스 이미지를 활용하여 커스텀 웹 페이지를 제공하는 이미지를 생성합니다.
+> * 베이스 이미지: nginx:latest
+> * 주요 작업:
+> * 1. 커스텀 index.html 작성
+> * 2. 기본 Nginx 메인 페이지 대신 커스텀 index.html 복사
+> * 3. 컨테이너 내부 웹 서비스 포트(80) 명시
+
+```bash
+# 1. 실습 파일(Dockerfile, index.html) 생성
+$ touch Dockerfile index.html
+
+# 2. VSCode로 열어서 Docker 파일 작성
+$ code .
+
+# Dockerfile
+FROM nginx:latest                      # 1. Nginx 베이스 이미지 지정
+COPY index.html /usr/share/nginx/html  # 2. 커스텀 HTML 파일을 컨테이너 내부로 복사
+EXPOSE 80                              # 3. 80번 포트 사용 명시
+
+# 3. 커스텀 웹페이지 내용 작성 및 확인
+$ echo '<h1>Hello! This is MY Custom Docker!</h1>' > index.html  
+$ cat index.html                    
+<h1>Hello! This is MY Custom Docker!</h1> 
+
+# 4. Docker 이미지 빌드 (-t test-web)
+$ docker build -t test-web .
+
+# 5. 이미지 생성 확인
+$ docker images                     # 이미지 확인
+IMAGE                ID             DISK USAGE   CONTENT SIZE   EXTRA # ← 결과값  
+hello-world:latest   c3cbe1cc1aa5       25.9kB         9.49kB    U
+my-food:latest       d74fc8b9c0c2        157MB         41.6MB    U
+my-web:latest        5f91108394f1       92.7MB         26.1MB    U
+ubuntu:latest        3131b4cc82a7        161MB         45.3MB    U
+web-test:latest      4e727198299d        238MB         63.1MB
+
+```
+
+
+# 6. 포트 매핑 적용 후 백그라운드 실행 (8080:80)
+
+```bash
+$ docker run -d -p 8080:80 test-web
+17c127e447cfc23556ad2b6b3de9c9d29eacd97d23a0708a87a5e0008f4b8078
+```
+
+#### 📸 웹 브라우저 접속 성공 증거
+> * 접속 URL: `http://localhost:8080`
+![웹 브라우저 접속화면](https://github.com/user-attachments/assets/fd0506eb-9473-46c4-9a32-6928afb8a48b)
+
+> **💡포트 매핑(8080:80)이 필요한 이유**
+> * Docker 컨테이너는 격리된 가상 네트워크를 사용하므로, 외부(호스트 컴퓨터)에서 접근하려면 호스트 포트와 컨테이너 포트를 연결(-p 8080:80)해 주는 포트 포워딩 통로가 필요합니다.
+
+> **💡포트 바인딩 방식 및 보안 고려사항**
+> * -p 8080:80 (기본값, 0.0.0.0:8080): 외부 인터넷이나 같은 Wi-Fi(전체 외부 인터페이스)에 노출됩니다.
+> * -p 127.0.0.1:8080:80 (로컬 바인딩): 로컬 호스트(Loopback)로만 접근을 제한하여 외부 접근을 차단합니다.
+
+```bash
+# 로컬호스트(내 컴퓨터)에서만 접근 가능하도록 방화벽 범위 제한
+$ docker run -d -p 127.0.0.1:8080:80 test-web
+
+```
+
+> **💡포트 충돌 진단 및 해결 절차**
+> * docker run을 실행했을 때 bind: address already in use라는 에러가 난다면, 내가 사용하려는 포트(예: 8080)를 이미 다른 프로그램이 차지해서 쓰고 있다는 뜻입니다. 
+
+아래 3단계 절차를 순서대로 진행하면 3분 안에 해결할 수 있습니다.
+
+> * 1. 충돌 프로세스 PID(포트) 확인:
+> * 충돌 프로세스 PID 확인:
+> * macOS/Linux: lsof -i :8080
+> * Windows (PowerShell): netstat -ano | findstr :8080
+
+> * 프로세스 종료 또는 포트 변경:
+> * 프로세스 강제 종료: kill -9 <PID> (Windows: taskkill /F /PID <PID>)
+> * 대안: 실행 포트 변경 (-p 8081:80)
+
+---
+
+## 6.5 Docker 운영 명령어 및 데이터 영속성 테스트
+### 바인드 마운트 (Bind Mount) 실습
+
+```bash
+
+# 1. 호스트 디렉터리 작성
+> * 호스트의 특정 디렉토리와 컨테이너 내부 폴더를 실시간 동기화하여 변경 사항을 원본에 직접 반영합니다
 ```bash
 # 1. 호스트(내 컴퓨터)에 테스트용 디렉토리 및 파일 생성
 $ mkdir bind_test
@@ -558,7 +487,7 @@ After Change
 > * sleep 1000: 컨테이너가 바로 종료되지 않고 1,000초간 실행 상태를 유지하도록 지정합니다.
 
 
-### 8-2 도커 볼륨 (Docker Volume)
+### 도커 볼륨 실습
 * Docker가 관리하는 독립된 볼륨을 생성하고, 컨테이너를 삭제한 후에도 데이터가 유지되는지 영속성을 검증합니다.
 
 ```bash
@@ -589,24 +518,59 @@ root@9922419c7977:/# exit
 > * -v test-usb:/data: 생성한 볼륨을 컨테이너 내부 /data 경로에 마운트합니다.
 > * docker rm container-A: 기존 컨테이너가 삭제되더라도 볼륨 내 데이터는 영구적으로 유지되는 것을 검증하였습니다.
 
-## 9. Git 설정 및 GitHub 연동
+
+
+7. Git 설치 확인 및 기본 Config 설정
 * 개념 정리
 > * Git: 로컬 컴퓨터에서 코드 변경 이력을 관리하는 버전에 제어 시스템입니다.
 > * GitHub: Git 이력을 원격 서버에 저장하여 협업 및 백업을 가능하게 하는 클라우드 플랫폼입니다.
 
-9-1. Git 설치 확인 및 기본 Config 설정
 ```bash
-# 1. Git 설치 버전 확인
+# 0. Git 설치 버전 확인
 $ git --version
 git version 2.55.0
 
-# 2. Git 사용자 정보 및 기본 브랜치(main) 설정
+# 1. Git 글로벌 사용자 정보 설정
 $ git config --global user.name "*o****"
 $ git config --global user.email "***n*******@*****.com"
 $ git config --global init.defaultBranch main
 
-# 3. 우분투 터미널에서 작업 폴더로 이동한 뒤 VS Code를 열어서 확인하기
+# 2. 작업 디렉터리 내 Git 저장소 초기화 및 사용자 설정
+```bash
+$ git init
+Initialized empty Git repository in /home/******/study/.git/
+$ git config user.name "*****"
+$ git config user.email "**********.*****.com"
+```
+
+#### 📸 실행 결과 캡처
+![git 저장소 확인](https://github.com/user-attachments/assets/c22b373a-acdc-4e0d-baf8-c19070dc5eb1)
+
+---
+
+
+7.2 Git 저장소(.git) 생성 및 전체 파일 상태 확인
+```bash
+$ ls -al
+total 20
+drwxr-xr-x  5 ****** ****** 4096 Aug  2 08:12 .
+drwxr-x--- 13 ****** ****** 4096 Aug  2 08:18 ..
+drwxr-xr-x  6 ****** ****** 4096 Aug  2 08:18 .git
+drwxr-xr-x  2 ****** ****** 4096 Aug  2 07:59 test
+-rw-r--r--  1 ****** ******    0 Aug  2 07:59 test.txt
+drwxrwxrwx  2 ****** ****** 4096 Aug  2 08:06 test_dir
+-rwxrwxrwx  1 ****** ******    0 Aug  2 08:07 test_file.txt
+```
+
+#### 📸 실행 결과 캡처
+![작업 폴더 내 생성된 파일 및 git 폴더 존재 확인](https://github.com/user-attachments/assets/c22b373a-acdc-4e0d-baf8-c19070dc5eb1)
+
+7.3 VS Code 연동 및 Git Config 설정 내역 점검
+```bash
+# 작업 폴더 이동 후 VS Code 실행
 $ code .
+# Git 설정 목록 확인
+
 $ git config --list
 user.name=*o****  (마스킹 처리)                             
 user.email=***n*******@gmail.com (마스킹 처리)
@@ -621,9 +585,11 @@ init.defaultbranch=main (마스킹 처리)
 
 ---
 
-9-2. Git 저장소 초기화 및 GitHub 커밋/게시
+7.4. Git 저장소 초기화 및 GitHub 커밋/게시
+1) 소스 버전 관리 및 초기 커밋
+
 ```bash
-# 1. bind_test 작업 폴더를 Git 저장소(Repository)로 초기화
+# 작업 폴더를 Git 저장소(Repository)로 초기화
 $ git init 
 ```
 > **💡VSCode GUI 활용과정**
@@ -636,8 +602,9 @@ $ git init
 
 ---
 
-9-3. 원격 저장소 추가 및 GitHub 푸시
+2) 원격 저장소 추가 및 푸시
 ```bash
+# 원격 저장소 연결 및 main 브랜치 푸시
 $ git remote add origin https://github.com/roe-e/**-********.git
 $ git push -u origin main
 ```

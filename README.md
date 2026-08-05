@@ -29,9 +29,8 @@ ro-codyssey/
 └── README.md              # 프로젝트 환경 구축 및 기술 문서
 ```
 > **💡파일별 역할**
-> * Dockerfile: 
-> nginx:
-> * latest를 기반으로 커스텀 index.html을 복사하고 80번 포트를 명세하는 이미지 빌드 파일
+> Dockerfile: 
+> * nginx:latest를 기반으로 커스텀 index.html을 복사하고 80번 포트를 명세하는 이미지 빌드 파일
 > index.html: 
 > * Docker 웹 서버 정상 동작 확인을 위한 샘플 HTML 웹 페이지
 > README.md: 

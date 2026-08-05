@@ -1,13 +1,54 @@
-## 1. 미션 : 나만의 개발 워크스테이션 만들기
-본 미션의 목표는 누구에게나 동일하고 안정적으로 실행되는 서버 개발 환경을 구축하는 것입니다. 내 컴퓨터에 Docker와 Git을 설치하고, 데이터를 안전하게 저장(Volume/Bind Mount)하는 컨테이너 웹 서버를 띄워 검증한 뒤, GitHub와 연동하여 개발 환경을 완성합니다.
+Markdown
+# 🚀 1주차 미션: 나만의 개발 워크스테이션 만들기 
 
-## 2. 실행 환경
-* OS:Windows 11 Pro (버전 25H2)
-* 터미널/쉘:WSL2 (Ubuntu) / bash  
-* Docker 버전: Docker version 29.6.2
+## 1. 📌 미션 개요
+* 목표: 
+> * 개발 환경의 격리성 및 재현성을 확보하기 위해 CLI, Docker, Git을 활용한 개발 워크스테이션 구축
+* 주요 수행 내용:
+> * Linux CLI 조작, 파일 권한 설정, Docker 커텀 이미지 빌드, 포트 매핑, 바인드 마운트 및 볼륨 영속성 검증, Git/GitHub 연동
+
+## 2. 📁 프프로젝트 디렉토리 구조
+본 프로젝트는 완벽한 환경 재현성을 위해 아래와 같은 표준 구조로 설계되었습니다.
+
+```text
+**-********/
+├── .git/                  # Git 버전 관리 디렉토리
+├── .gitignore             # Git 추적 제외 파일 목록
+├── Dockerfile             # Custom Nginx 이미지 생성용 설계도
+├── index.html             # 웹 서버 테스트용 메인 페이지
+└── README.md              # 프로젝트 환경 구축 및 기술 문서
+```
+---
+
+## 3. 💻 실행 환경
+* OS:macOS (교육장, OrbStack 활용) / Windows 11 (집, Docker Desktop)
+* 터미널/쉘:zsh / bash / PowerShell
+* Docker 버전: Docker version 29.6.2 (OrbStack / Docker Desktop)
 * Git 버전: git version 2.55.0
 
-## 3. 수행 항목 체크리스트 (Checklist)
+* 권한 관리: macOS/Windows 환경에서는 Docker Desktop 및 OrbStack을 활용하여 별도의 sudo 권한 없이 일반 사용자 권한으로 명령어를 수행했습니다.
+
+## 3. ⚡ 개발 환경 재현 및 검증 절차
+> * 본 프로젝트의 실행 환경을 재현하려면 아래 순서대로 명령어를 실행하여 Docker 환경을 구성 및 검증할 수 있습니다.
+
+```bash
+# 1. 저장소 복제 및 이동
+$ git clone [https://github.com/roe-e/ro-codyssey.git](https://github.com/roe-e/ro-codyssey.git)
+cd ro-codyssey
+
+# 2. 커스텀 Docker 이미지 빌드
+$ docker build -t test-web .
+
+# 3. 컨테이너 실행 (포트 매핑 8080:80)
+$ docker run -d --name my-web -p 8080:80 test-web
+
+# 4. 정상 작동 확인 (HTTP 200 OK)
+$ curl -I http://localhost:8080
+```
+
+---
+
+## 4. ✅ 수행 항목 체크리스트 
 터미널 기본 조작 및 파일 권한 실습
 Docker 설치 및 데몬 상태 점검
 Docker 기본 운영 명령(이미지, 컨테이너, 로그, 리소스) 숙달
@@ -17,17 +58,9 @@ Ubuntu 컨테이너 진입 및 내부 명령 수행
 바인드 마운트 및 도커 볼륨 영속성 검증
 Git 사용자 설정 및 GitHub/VS Code 연동
 
-## 4. 프로젝트 디렉토리 구조 (Directory Structure)
-본 프로젝트는 완벽한 환경 재현성을 위해 아래와 같은 표준 구조로 설계되었습니다.
 
-```text
-ro-codyssey/
-├── .git/                  # Git 버전 관리 디렉토리
-├── .gitignore             # Git 추적 제외 파일 목록
-├── Dockerfile             # Custom Nginx 이미지 생성용 설계도
-├── index.html             # 웹 서버 테스트용 메인 페이지
-└── README.md              # 프로젝트 환경 구축 및 기술 문서
 ```
+
 > **💡파일별 역할**
 > * Dockerfile: 
 > nginx:latest를 기반으로 커스텀 index.html을 복사하고 80번 포트를 명세하는 이미지 빌드 파일
@@ -36,31 +69,33 @@ ro-codyssey/
 > README.md: 
 > 기술 개념, 실행 증거, 트러블슈팅 및 환경 재현 절차가 담긴 메인 문서
 
+---
 
-## 4. 터미널 조작 및 파일 권한 실습 로그
-### 4.1 기본 명령어 수행
+## 5. 🛠️ 미션 수행 상세 로그 및 검증
+### 5.1 터미널 조작 및 파일 권한
 ```bash
-# 1. 현재 위치한 확인 
+### 기초 명령 수행: pwd, ls -la, mkdir, cp, mv, rm 실행 확인
+#### 1. 현재 위치한 확인 
 $ pwd                          
 /home/****** 
 
-# 2. 파일 목록 확인(숨김 파일 포함)
+#### 2. 파일 목록 확인(숨김 파일 포함)
 $ ls -a                 
 .  ..
 
-# 3. 폴더 생성 및 이동
+#### 3. 폴더 생성 및 이동
 $ mkdir test
 $ cd test
 $ pwd
 /home/******/test         
 
-# 4. 파일 생성, 복사, 이름변경, 삭제 
+#### 4. 파일 생성, 복사, 이름변경, 삭제 
 $ touch test.txt
 $ cp test.txt test_copy.txt
 $ mv test_copy.txt renamed.txt
 $ rm renamed.txt
 
-# 5. 최종 작업 결과 확인
+#### 5. 최종 작업 결과 확인
 $ ls -l
 total 4
 drwxr-xr-x 2 ****** ****** 4096 Aug  2 07:59 test
@@ -84,15 +119,15 @@ drwxr-xr-x 2 ****** ****** 4096 Aug  2 07:59 test
 >   * 권장 사례: 로컬 개인 개발 환경, 팀원 간 리포지토리 공유 시. 프로젝트 폴더의 절대 위치가 사용자마다 달라져도 코드 수정 없이 그대로 실행할 수 있습니다.
 ---
 
-### 4.2 작업 디렉터리 파일 및 권한 확인/변경
+### 파일 권한 비교
 > * 실험 대상: test_dir (폴더), test_file.txt (파일)
 
 ```bash
-# 1. 테스트용 폴더 및 파일 생성
+#### 1. 테스트용 폴더 및 파일 생성
 $ mkdir test_dir
 $ touch test_file.txt                       
 
-# 2. 변경 전 기본 권한 확인
+#### 2. 변경 전 기본 권한 확인
 $ ls -l
 total 8                                                      
 drwxr-xr-x 2 ****** ****** 4096 Aug  2 07:59 test
@@ -100,11 +135,11 @@ drwxr-xr-x 2 ****** ****** 4096 Aug  2 07:59 test
 drwxr-xr-x 2 ****** ****** 4096 Aug  2 08:02 test_dir
 -rw-r--r-- 1 ****** ******    0 Aug  2 08:04 test_file.txt
 
-# 3. 권한 변경 (폴더: 777, 파일: 755)
+#### 3. 권한 변경 (폴더: 777, 파일: 755)
 $ chmod 777 test_dir
 $ chmod 755 test_file.txt
 
-# 4. 변경 후 권한 확인
+#### 4. 변경 후 권한 확인
 total 8
 drwxr-xr-x 2 ****** ****** 4096 Aug  2 07:59 test
 -rw-r--r-- 1 ****** ******    0 Aug  2 07:59 test.txt
@@ -143,7 +178,7 @@ drwxrwxrwx 2 ****** ****** 4096 Aug  2 08:06 test_dir
 
 ---
     
-## 5. Docker 설치 및 기본 점검
+## 5-2. Docker 설치 및 기본 점검
 ### 5.1 Docker 환경 구축
 > * 운영체제 및 환경: Windows (WSL2 기반 Docker Desktop)
 > * 설치 절차:
@@ -166,12 +201,12 @@ Containers: 6
 Images: 5
 Server Version: 29.6.2
 Operating System: Docker Desktop
-```
+
 
 ---
 
-### 5.3 Docker 첫 실행 테스트 (hello-world)
-```bash
+# 3. 기본 실행 테스트
+
 # 1. hello-world 이미지 다운로드 및 컨테이너 실행
 $ docker run hello-world
 
@@ -350,34 +385,62 @@ $ docker run -d -p 8080:80 test-web
 
 > **💡포트 노출 시 보안 고려사항**
 > * 포트 매핑(-p 8080:80) 시 0.0.0.0:8080:80 형태로 노출되어 외부 네트워크 전체에 개방될 수 있습니다. 
-> * 보안을 강화하려면 다음과 같이 로컬 바인딩 제한(내 컴퓨터(로컬) 내부에서만 접속할 수 있게 문을 열어두고, 외부 인터넷이나 다른 사람의 컴퓨터에서는 아예 접속하지 못하도록 방화벽처럼 막아두는 설정)을 권장합니다. 
-> * Docker로 포트를 연결할 때 네트워크 접근 범위를 제한하는 아주 기본적인 보안 기법
+> * 보안을 강화하려면 다음과 같이 로컬 바인딩 제한을 권장합니다.
+
+> **💡포트 바인딩 방식에 따른 보안 고려사항**
+> * -p 8080:80 (기본값, 0.0.0.0:8080): 외부 인터넷이나 같은 Wi-Fi를 쓰는 타인도 내 서버에 접속할 수 있어 보안에 주의해야 합니다.
+> * -p 127.0.0.1:8080:80 (로컬 바인딩): 오직 내 컴퓨터(Loopback) 내부에서만 접속을 허용하여 개인 개발 및 테스트 시 해킹 위험을 차단합니다.
 
 ```bash
 # 로컬호스트(내 컴퓨터)에서만 접근 가능하도록 방화벽 범위 제한
-docker run -d -p 127.0.0.1:8080:80 test-web
+$ docker run -d -p 127.0.0.1:8080:80 test-web
 
+```
+
+> **💡포트 충돌 진단 및 해결 절차**
+> * docker run을 실행했을 때 bind: address already in use라는 에러가 난다면, 내가 사용하려는 포트(예: 8080)를 이미 다른 프로그램이 차지해서 쓰고 있다는 뜻입니다. 
+
+아래 3단계 절차를 순서대로 진행하면 3분 안에 해결할 수 있습니다.
+
+> * 1. 1단계: 어떤 프로그램이 포트를 쓰는지 확인하기 (PID 찾기)
+> * 포트를 독점하고 있는 범인 프로그램의 주민등록번호같은 고유 번호(PID, Process ID)를 먼저 찾아야 합니다.
+> * macOS (교육장) / Linux:
+```bash
+  lsof -i :8080
+> * macOS (교육장) / Linux:
+```
+
+```bash
+  PowerShell
+  netstat -ano | findstr :8080
 ```
 
 ---
 
-> **💡개발 환경 재현 및 검증 절차**
-> * 본 프로젝트의 실행 환경을 재현하려면 아래 순서대로 명령어를 실행하여 Docker 환경을 구성 및 검증할 수 있습니다.
+> * 2. 2단계: 충돌하는 프로그램 종료하기 (2가지 방법 중 선택)
+> * 방법 A. 방해하는 프로그램 강제 종료하기 (가장 확실한 방법)
+> * 1단계에서 확인한 PID 번호(예: 12345)를 넣어 해당 프로세스를 종료합니다.
+> * macOS (교육장) / Linux:
+```bash
+  kill -9 12345
+> * macOS (교육장) / Linux:
+```
 
 ```bash
-# 1. 저장소 복제 및 이동
-$ git clone [https://github.com/roe-e/ro-codyssey.git](https://github.com/roe-e/ro-codyssey.git)
-cd ro-codyssey
-
-# 2. 커스텀 Docker 이미지 빌드
-$ docker build -t test-web .
-
-# 3. 컨테이너 실행 (포트 매핑 8080:80)
-$ docker run -d --name my-web -p 8080:80 test-web
-
-# 4. 정상 작동 확인 (HTTP 200 OK)
-$ curl -I http://localhost:8080
+  PowerShell
+  taskkill /F /PID 12345
 ```
+> * 방법 B. 포트 번호를 바꿔서 실행하기 (대안)
+> * 기존에 실행 중인 프로그램을 끌 수 없는 상황이라면, 호스트(내 컴퓨터)의 포트 번호만 빈 포트(예: 8081)로 바꿔서 실행합니다.
+```bash
+# 8080 대신 8081 포트로 변경하여 컨테이너 실행
+$ docker run -d --name my-web -p 8081:80 test-web
+
+# 변경된 포트로 접속 테스트
+$ curl -I http://localhost:8081
+
+---
+> * 3. 3단계: 충돌하는 프로그램 종료하기 (2가지 방법 중 선택)
 
 ---
 

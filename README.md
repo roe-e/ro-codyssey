@@ -27,12 +27,12 @@ ro-codyssey/
 ├── Dockerfile             # Custom Nginx 이미지 생성용 설계도
 ├── index.html             # 웹 서버 테스트용 메인 페이지
 └── README.md              # 프로젝트 환경 구축 및 기술 문서
-
+```
 > * 파일별 역할
 > * Dockerfile: nginx:latest를 기반으로 커스텀 index.html을 복사하고 80번 포트를 명세하는 이미지 빌드 파일
 > * index.html: Docker 웹 서버 정상 동작 확인을 위한 샘플 HTML 웹 페이지
 > * README.md: 기술 개념, 실행 증거, 트러블슈팅 및 환경 재현 절차가 담긴 메인 문서
-```
+
 
 ## 4. 터미널 조작 및 파일 권한 실습 로그
 ### 4.1 기본 명령어 수행

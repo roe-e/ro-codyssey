@@ -95,7 +95,7 @@ class QuizGame:
             return
 
         current_score = 0
-        print("\n--- 퀴즈를 시작합니다! ---")
+        print("\n🚀 두근두근! 맞춤법 퀴즈를 시작합니다! 🚀")
         for i, quiz in enumerate(self.quizzes, 1):
             quiz.display(i)
             user_ans = self.get_input("정답 번호 (1-4): ", 1, 4)

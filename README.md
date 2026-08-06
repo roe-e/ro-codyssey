@@ -9,3 +9,4 @@
 ## 실행 방법
 ```bash
 python main.py
+mac에서 추가한 글씨입니다
